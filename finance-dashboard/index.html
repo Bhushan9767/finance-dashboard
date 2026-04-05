@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finance Dashboard UI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">Zorvyn Finance</div>
+      <div class="brand-sub">Frontend Dashboard Assignment</div>
+
+      <nav class="nav">
+        <a href="#overview" class="active">Overview</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#transactions">Transactions</a>
+        <a href="#insights">Insights</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="page-title">
+          <h1>Finance Dashboard</h1>
+          <p>Track balance, monitor spending, and manage transactions with role-based UI.</p>
+        </div>
+
+        <div class="top-actions">
+          <select id="roleSelect">
+            <option value="viewer">Viewer</option>
+            <option value="admin">Admin</option>
+          </select>
+          <button id="openAddModal">+ Add Transaction</button>
+        </div>
+      </div>
+
+      <section id="overview" class="grid-3">
+        <div class="card balance">
+          <div class="summary-label">Total Balance</div>
+          <div class="summary-value" id="totalBalance">₹0</div>
+          <div class="summary-note">Current available balance across all transactions.</div>
+        </div>
+
+        <div class="card income">
+          <div class="summary-label">Total Income</div>
+          <div class="summary-value" id="totalIncome">₹0</div>
+          <div class="summary-note">All income entries recorded in the dashboard.</div>
+        </div>
+
+        <div class="card expense">
+          <div class="summary-label">Total Expenses</div>
+          <div class="summary-value" id="totalExpenses">₹0</div>
+          <div class="summary-note">All outgoing expenses tracked by category.</div>
+        </div>
+      </section>
+
+      <section id="analytics" class="grid-2">
+        <div class="card">
+          <div class="card-title">
+            <div>
+              <h2>Balance Trend</h2>
+              <p>Monthly balance flow based on mock transaction data</p>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <div>
+              <h2>Spending Breakdown</h2>
+              <p>Category-wise expense distribution</p>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section id="transactions" class="card section-space">
+        <div class="card-title">
+          <div>
+            <h2>Transactions</h2>
+            <p>Search, sort, and filter financial activity</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <input type="text" id="searchInput" placeholder="Search category or date..." />
+          <select id="filterType">
+            <option value="all">All Types</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+
+          <select id="sortBy">
+            <option value="latest">Sort: Latest</option>
+            <option value="oldest">Sort: Oldest</option>
+            <option value="high">Amount: High to Low</option>
+            <option value="low">Amount: Low to High</option>
+          </select>
+
+          <button class="secondary-btn" id="resetFilters">Reset</button>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="transactionTableBody"></tbody>
+          </table>
+        </div>
+
+        <div id="emptyState" class="empty-state" style="display: none;">
+          No transactions found for the selected filters.
+        </div>
+      </section>
+
+      <section id="insights" class="card">
+        <div class="card-title">
+          <div>
+            <h2>Insights</h2>
+            <p>Simple observations generated from transaction data</p>
+          </div>
+        </div>
+        <div class="insight-list" id="insightList"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="transactionModal">
+    <div class="modal-content">
+      <h2 id="modalTitle">Add Transaction</h2>
+      <p class="small-text">Only admin can add or edit transactions.</p>
+
+      <div class="form-grid">
+        <input type="date" id="txnDate" />
+        <input type="text" id="txnCategory" placeholder="Category" />
+        <select id="txnType">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        <input type="number" id="txnAmount" placeholder="Amount" />
+        <input type="text" id="txnDescription" placeholder="Description" />
+      </div>
+
+      <div class="form-actions">
+        <button class="secondary-btn" id="closeModal">Cancel</button>
+        <button id="saveTransaction">Save Transaction</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
